@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,9 +9,10 @@ public class Player : MonoBehaviour
     [SerializeField] float maxSpeed;
     [SerializeField] float speedUpLerpValue;
     [SerializeField] float jumpHeight;
-
-    Rigidbody2D rb;
+    
     InputAction movementAction;
+    Rigidbody2D rb;
+    
     bool canJump = false;
 
     private void Start()
@@ -21,13 +23,10 @@ public class Player : MonoBehaviour
 
     public void FixedUpdate()
     {
-        Debug.Log("can jump? " + canJump);
-
         if (Physics2D.Raycast(transform.position, Vector2.down, 1.1f))
             canJump = true;
         else
             canJump = false;
-
 
         float dir = movementAction.ReadValue<float>();
 
