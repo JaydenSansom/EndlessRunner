@@ -11,6 +11,5 @@ public class CameraFollowBoundary : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
             followCam.UpdateCurrentTrackPoint(gameObject);
-
     }
 }
