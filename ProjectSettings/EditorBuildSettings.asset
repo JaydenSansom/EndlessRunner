@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/Main_Menu.unity
+    guid: ba657f4da3f8ff0409f4dfa55997d1c5
+  - enabled: 1
+    path: Assets/Scenes/NyelaScene.unity
+    guid: 790741de497f19b45a95141fc0306e08
   m_configObjects: {}
