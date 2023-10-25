@@ -29,13 +29,11 @@ public class Main_Menu : MonoBehaviour
     public void Highscore()
     {
         panel.SetActive(true);
-        backgroundCanvas.SetActive(false);
     }
 
     public void Back()
     {
         panel.SetActive(false);
-        backgroundCanvas.SetActive(true);
     }
 
     public void Quit()
