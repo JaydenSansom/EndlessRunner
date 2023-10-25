@@ -10,7 +10,9 @@ public class Player : MonoBehaviour
     [SerializeField] float speedUpLerpValue;
     [SerializeField] float jumpHeight;
     [SerializeField] float slowDownForce;
+    [SerializeField] float damageWaitForSeconds;
     [SerializeField] WallOfDeath wallOfDeath;
+    [SerializeField] Canvas gameOver;
     
     InputAction movementAction;
     Rigidbody2D rb;
@@ -28,13 +30,13 @@ public class Player : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (Physics2D.Raycast(transform.position, Vector2.down, 1.1f))
+        if (Physics2D.Raycast(transform.position, Vector2.down, 2f))
             canJump = true;
         else
             canJump = false;
 
         float dir = movementAction.ReadValue<float>();
-        Debug.Log(dir);
+        //Debug.Log(dir);
 
         if (!damageSlowDown)
             rb.velocity = Vector2.Lerp(rb.velocity, new(dir * maxSpeed, rb.velocity.y), Time.fixedDeltaTime * speedUpLerpValue);
@@ -48,14 +50,16 @@ public class Player : MonoBehaviour
         {
             damageSlowDown = true;
             rb.AddForce(new(-(rb.velocity.x)/2.0f, 0), ForceMode2D.Impulse);
-            Camera.main.GetComponent<CameraFollow>().SetDamageCameraTimer();
-            wallOfDeath.DamageGainOnPlayer();
+            Camera.main.GetComponent<CameraFollow>().SetDamageCameraTimer(damageWaitForSeconds);
+            wallOfDeath.DamageGainOnPlayer(damageWaitForSeconds);
+            //StopAllCoroutines();
             StartCoroutine(DamageBlink());
         }
 
         if (collision.CompareTag("WallOfDeath"))
         {
             Debug.Log("Game Over >:(");
+            gameOver.enabled = true;
         }
     }
 
@@ -63,9 +67,9 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(damageWaitForSeconds / 8.0f);
             sprite.color = new(sprite.color.r, sprite.color.g, sprite.color.b, 0.5f);
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(damageWaitForSeconds / 8.0f);
             sprite.color = new(sprite.color.r, sprite.color.g, sprite.color.b, 1f);
         }
         damageSlowDown = false;

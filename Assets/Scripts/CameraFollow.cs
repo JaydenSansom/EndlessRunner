@@ -60,20 +60,23 @@ public class CameraFollow : MonoBehaviour
 
     public void UpdateCurrentTrackPoint(GameObject side)
     {
-        currentTrackPoint = side == rightMax ? rightTrackPoint : leftTrackPoint;
+        if (!damageTimer)
+            currentTrackPoint = side == rightMax ? rightTrackPoint : leftTrackPoint;
     }
 
-    IEnumerator DamageTimer()
+    IEnumerator DamageTimer(float waitSeconds)
     {
-        yield return new WaitForSeconds(1);
+        damageTimer = true;
+        currentTrackPoint = leftTrackPoint;
+        yield return new WaitForSeconds(waitSeconds);
         damageTimer = false;
         yield return null;
     }
 
-    public void SetDamageCameraTimer()
+    public void SetDamageCameraTimer(float waitSeconds)
     {
         currentTrackPoint = leftTrackPoint;
-        damageTimer = true;
-        StartCoroutine(DamageTimer());
+        //StopAllCoroutines();
+        StartCoroutine(DamageTimer(waitSeconds));
     }
 }

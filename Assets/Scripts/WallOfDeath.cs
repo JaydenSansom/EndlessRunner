@@ -12,7 +12,16 @@ public class WallOfDeath : MonoBehaviour
     float percentOfPlayerSpeed;
 
     [SerializeField]
+    float percentOfSpeedDamaged;
+
+    [SerializeField]
     float maxDistanceSlower;
+
+    [SerializeField]
+    float distWhileDamaged;
+
+    [SerializeField]
+    int headStartSeconds;
 
     Rigidbody2D wallRB;
     bool playerDamaged;
@@ -29,27 +38,30 @@ public class WallOfDeath : MonoBehaviour
         if (headStart)
             return;
 
-        if (playerRB.velocity.x > 0)
+        if (!playerDamaged && playerRB.velocity.x > 0)
         {
             if (Vector2.Distance(playerRB.position, wallRB.position) >= maxDistanceSlower)
                 wallRB.position = new(playerRB.position.x - maxDistanceSlower, wallRB.position.y);
             else
                 wallRB.velocity = new(playerRB.velocity.x * percentOfPlayerSpeed, wallRB.velocity.y);
         }
-        else if (playerDamaged || (int) playerRB.velocity.x == 0)
-            wallRB.velocity = new(playerRB.gameObject.GetComponent<Player>().maxSpeed * percentOfPlayerSpeed, wallRB.velocity.y);
+        else if (playerDamaged || (int) playerRB.velocity.x < .1f * playerRB.gameObject.GetComponent<Player>().maxSpeed)
+            wallRB.velocity = new(playerRB.gameObject.GetComponent<Player>().maxSpeed * percentOfSpeedDamaged, wallRB.velocity.y);
     }
 
-    public void DamageGainOnPlayer()
+    public void DamageGainOnPlayer(float waitSeconds)
     {
-        wallRB.position = new(playerRB.position.x - maxDistanceSlower/2, wallRB.position.y);
-        StartCoroutine(PlayerDamaged());
+        if (playerRB.position.x - wallRB.position.x > distWhileDamaged)
+            wallRB.position = new(playerRB.position.x - distWhileDamaged, wallRB.position.y);
+
+        //StopAllCoroutines();
+        StartCoroutine(PlayerDamaged(waitSeconds));
     }
 
-    IEnumerator PlayerDamaged()
+    IEnumerator PlayerDamaged(float waitSeconds)
     {
         playerDamaged = true;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(waitSeconds);
         playerDamaged = false;
         yield return null;
     }
@@ -57,7 +69,7 @@ public class WallOfDeath : MonoBehaviour
     IEnumerator GiveHeadStart()
     {
         headStart = true;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(headStartSeconds);
         headStart = false;
         yield return null;
     }
