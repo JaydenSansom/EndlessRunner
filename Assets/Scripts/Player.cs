@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     
     bool canJump = false;
     bool damageSlowDown = false;
+    public bool swinging = false;
 
     private void Start()
     {
@@ -78,6 +79,12 @@ public class Player : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context) 
     {
+        if (swinging && context.action.ReadValue<float>() != 0)
+        {
+            GetComponentInParent<Vine>().ExitVine(this);
+            return;
+        }
+
         if (canJump && context.action.ReadValue<float>() != 0)
         {
             rb.AddForce(new(0, jumpHeight), ForceMode2D.Impulse);
