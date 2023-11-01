@@ -17,6 +17,9 @@ public class Vine : MonoBehaviour
         if (playerJoint != null)
             return;
 
+        if (player.transform.parent != null)
+            return;
+
         currentSegment = segment;
 
         currentSegment.GetComponent<Rigidbody2D>().velocity = player.GetComponent<Rigidbody2D>().velocity;

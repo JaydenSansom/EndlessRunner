@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4236270448099761287}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: Vine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131,7 +131,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.0000011940383, y: 1.29}
-  m_ConnectedAnchor: {x: 16.87183, y: 6.4259872}
+  m_ConnectedAnchor: {x: 20.010635, y: 5.735987}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -172,7 +172,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.0056803823}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -183,7 +183,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 2.6017852}
   m_EdgeRadius: 0
 --- !u!114 &4236270448099761287
 MonoBehaviour:
@@ -209,7 +209,7 @@ GameObject:
   - component: {fileID: 2267859011952556210}
   m_Layer: 0
   m_Name: Vine
-  m_TagString: Untagged
+  m_TagString: Vine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14b6751a1c943384281dbeffa7bf9d40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedBoost: 2
+  speedBoost: 1.2
 --- !u!1 &6546957212351213171
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 689682494394786644}
   m_Layer: 0
   m_Name: Square (1)
-  m_TagString: Untagged
+  m_TagString: Vine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -417,7 +417,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.005679965}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -428,7 +428,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 2.5563447}
   m_EdgeRadius: 0
 --- !u!114 &689682494394786644
 MonoBehaviour:
@@ -458,7 +458,7 @@ GameObject:
   - component: {fileID: 7952115790845298058}
   m_Layer: 0
   m_Name: Square (2)
-  m_TagString: Untagged
+  m_TagString: Vine
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -573,7 +573,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.06650442, y: 1.2500001}
-  m_ConnectedAnchor: {x: 0, y: -1.2900001}
+  m_ConnectedAnchor: {x: -0.0000042282168, y: -1.29}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -614,7 +614,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.017040372}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -625,7 +625,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 2.556345}
   m_EdgeRadius: 0
 --- !u!114 &7952115790845298058
 MonoBehaviour:
