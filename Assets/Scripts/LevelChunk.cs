@@ -33,6 +33,7 @@ public class LevelChunk : MonoBehaviour
     private string killzoneTag = "KillZone";
     [SerializeField, Tooltip("the tag for the spawn area, used to despawn object")]
     private string spawnzoneTag = "SpawnZone";
+    [SerializeField]
     private bool hasSpawnedNextArea = false;
 
     [Header("debug/vid stuff")]
