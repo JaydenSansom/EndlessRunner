@@ -33,13 +33,18 @@ public class LevelChunk : MonoBehaviour
     private string killzoneTag = "KillZone";
     [SerializeField, Tooltip("the tag for the spawn area, used to despawn object")]
     private string spawnzoneTag = "SpawnZone";
+    [SerializeField]
     private bool hasSpawnedNextArea = false;
+    [SerializeField, Tooltip("the max distance this object can be from the camera before it destroys itself")]
+    private float maxSafetyDist = 25;
 
     [Header("debug/vid stuff")]
     [SerializeField, Tooltip("the velocity to move this at")]
     private float moveSpeed = 1;
 
     private float maxWeights = 0;
+    [SerializeField, Tooltip("if marked true, will manually spawn segments for testing")]
+    private bool debugTestSpawn = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,10 +52,16 @@ public class LevelChunk : MonoBehaviour
             parentObj = transform.parent.gameObject;
         }
         SpawnRandObjects();
-        Invoke("SpawnNextChunk", 0.5f);
+        if(debugTestSpawn){
+            Invoke("SpawnNextChunk", 0.5f);
+        }
     }
 
     private void FixedUpdate() {
+        Vector3 cameraPos = Camera.main.transform.position;
+        if(cameraPos.x > transform.position.x && (cameraPos - transform.position).magnitude > maxSafetyDist){
+            Destroy(this);
+        }
         parentObj.transform.position += new Vector3(-moveSpeed,0,0);
     }
 
