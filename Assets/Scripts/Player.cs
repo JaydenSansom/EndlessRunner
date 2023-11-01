@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     InputAction movementAction;
     Rigidbody2D rb;
     SpriteRenderer sprite;
+    Animator animator;
     
     bool canJump = false;
     bool damageSlowDown = false;
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         movementAction = GetComponent<PlayerInput>().actions["move"];
         sprite = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     public void FixedUpdate()
@@ -43,6 +45,9 @@ public class Player : MonoBehaviour
             rb.velocity = Vector2.Lerp(rb.velocity, new(dir * maxSpeed, rb.velocity.y), Time.fixedDeltaTime * speedUpLerpValue);
         else
             rb.velocity = Vector2.Lerp(rb.velocity, new((dir * maxSpeed)/2.0f, rb.velocity.y), Time.fixedDeltaTime * speedUpLerpValue);
+
+        animator.SetBool("GoingUp", rb.velocity.y > 0);
+        animator.SetBool("Running", rb.velocity.x != 0 && rb.velocity.y == 0);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -64,8 +69,14 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        animator.SetTrigger("Land");
+    }
+
     IEnumerator DamageBlink()
     {
+        animator.SetTrigger("Ouchie");
         for (int i = 0; i < 4; i++)
         {
             yield return new WaitForSeconds(damageWaitForSeconds / 8.0f);
@@ -81,12 +92,14 @@ public class Player : MonoBehaviour
     {
         if (swinging && context.action.ReadValue<float>() != 0)
         {
+            animator.SetBool("Swinging", false);
             GetComponentInParent<Vine>().ExitVine(this);
             return;
         }
 
         if (canJump && context.action.ReadValue<float>() != 0)
         {
+            animator.SetTrigger("Jump");
             rb.AddForce(new(0, jumpHeight), ForceMode2D.Impulse);
             canJump = false;
         }

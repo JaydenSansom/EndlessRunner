@@ -28,6 +28,8 @@ public class Vine : MonoBehaviour
             child.angularVelocity = currentSegment.GetComponent<Rigidbody2D>().angularVelocity;
         }
 
+        player.GetComponent<Animator>().SetBool("Swinging", true);
+
         playerJoint = player.AddComponent<HingeJoint2D>();
         playerJoint.connectedBody = currentSegment.GetComponent<Rigidbody2D>();
         player.transform.parent = transform;
