@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField, Tooltip("The player script")]private Rigidbody player;
     [SerializeField, Tooltip("the current score")]private float currentScore = 0;
     [SerializeField, Tooltip("the text box for the player's score")]private TMP_Text scoreText;
     [SerializeField, Tooltip("the game over menu")]private GameObject GameOverMenu;
@@ -46,7 +47,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        IncreaseScore(pointsPerSecond * Time.fixedDeltaTime);
+        float pointsRate = pointsPerSecond;
+        if(player){
+            pointsRate += Mathf.Max(player.velocity.x, 0);
+        }
+        IncreaseScore(pointsRate * Time.fixedDeltaTime);
     }
 
     
@@ -84,7 +89,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void UpdateScoreText(){
-        scoreText.text = ((int)currentScore).ToString();
+        scoreText.text = "Score: " + ((int)currentScore).ToString();
     }
 
     private void GameOver(){
