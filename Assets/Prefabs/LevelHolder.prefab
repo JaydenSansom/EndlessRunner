@@ -798,4 +798,6 @@ MonoBehaviour:
   killzoneTag: WallOfDeath
   spawnzoneTag: SpawnZone
   hasSpawnedNextArea: 0
+  maxSafetyDist: 25
   moveSpeed: 0
+  debugTestSpawn: 0
