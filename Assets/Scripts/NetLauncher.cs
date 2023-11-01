@@ -61,6 +61,10 @@ public class NetLauncher : MonoBehaviour
         launchTimer = NetLaunchDelay;
         timerCounting = true;
         trajectory = NetTarget.position - transform.position;
+        if (reticle)
+        {
+            reticle.SetActive(true);
+        }
     }
     // Update is called once per frame
     void FixedUpdate()
