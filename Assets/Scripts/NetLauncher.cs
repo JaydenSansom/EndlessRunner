@@ -123,7 +123,7 @@ public class NetLauncher : MonoBehaviour
     }
 
     public void FireNet(){
-        GameObject launchedNet = Instantiate(NetPrefab, transform.position, Quaternion.identity);
+        GameObject launchedNet = Instantiate(NetPrefab, transform.position, Quaternion.identity, Camera.main.transform);
         launchedNet.GetComponent<Net>().SetHeading(trajectory);
         Destroy(gameObject);
     }

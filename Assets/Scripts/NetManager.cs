@@ -11,6 +11,8 @@ public class NetManager : MonoBehaviour
     private Transform netLauncherLowerBound;
     [SerializeField, Tooltip("the upper bound of locations where the net launcher can be spawned")]
     private Transform netLauncherUpperBound;
+    [SerializeField]
+    private Transform launcherParent;
 
     [Header("Spawn Timing")]
     [SerializeField, Tooltip("the initial delay before the first net launcher can spawn")]
@@ -87,7 +89,7 @@ public class NetManager : MonoBehaviour
     {
         float mult = Random.Range(0.0f, 1.0f);
         Vector3 spawnPoint = netLauncherLowerBound.position + (netLauncherUpperBound.position - netLauncherLowerBound.position) * mult;
-        GameObject launcher = Instantiate(netLauncherPrefab, spawnPoint, Quaternion.identity);
+        GameObject launcher = Instantiate(netLauncherPrefab, spawnPoint, Quaternion.identity, launcherParent);
         launcher.GetComponent<NetLauncher>().StartDelay(player, netLauncherShootDelay);
         if (partOfMultishot)
         {
