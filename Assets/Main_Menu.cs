@@ -13,6 +13,7 @@ public class Main_Menu : MonoBehaviour
     void Start()
     {
         panel.SetActive(false);
+        AudioManager.Instance.MusicUnpause();
     }
 
     // Update is called once per frame
@@ -23,7 +24,7 @@ public class Main_Menu : MonoBehaviour
 
     public void Play()
     {
-        SceneManager.LoadScene("NyelaScene");
+        SceneManager.LoadScene(1);
     }
 
     public void Highscore()

@@ -20,6 +20,25 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioClip victoryFx;
     [SerializeField] AudioClip defeatFx;
 
+    private static AudioManager _instance;
+
+    public static AudioManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<AudioManager>();
+                if (_instance == null)
+                {
+                    GameObject go = new GameObject();
+                    _instance = go.AddComponent<AudioManager>();
+                    Debug.Log("Generating new game manager");
+                }
+            }
+            return _instance;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
