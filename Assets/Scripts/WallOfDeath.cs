@@ -35,6 +35,9 @@ public class WallOfDeath : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.Instance.isPlaying())
+            return;
+
         if (headStart)
             return;
 

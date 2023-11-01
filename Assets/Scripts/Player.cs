@@ -29,10 +29,15 @@ public class Player : MonoBehaviour
         movementAction = GetComponent<PlayerInput>().actions["move"];
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        AudioManager.Instance.MusicUnpause();
     }
 
     public void FixedUpdate()
     {
+        if (!GameManager.Instance.isPlaying())
+            return;
+
+
         if (Physics2D.Raycast(transform.position, Vector2.down, 2f))
             canJump = true;
         else
@@ -64,6 +69,9 @@ public class Player : MonoBehaviour
 
         if (collision.CompareTag("WallOfDeath"))
         {
+            GameManager.Instance.GameOver();
+            AudioManager.Instance.MusicPause();
+            AudioManager.Instance.FXDefeat();
             Debug.Log("Game Over >:(");
             gameOver.enabled = true;
         }
@@ -77,6 +85,7 @@ public class Player : MonoBehaviour
     IEnumerator DamageBlink()
     {
         animator.SetTrigger("Ouchie");
+        AudioManager.Instance.FXObjectHit();
         for (int i = 0; i < 4; i++)
         {
             yield return new WaitForSeconds(damageWaitForSeconds / 8.0f);

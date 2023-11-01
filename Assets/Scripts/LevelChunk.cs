@@ -54,13 +54,14 @@ public class LevelChunk : MonoBehaviour
         SpawnRandObjects();
         if(debugTestSpawn){
             Invoke("SpawnNextChunk", 0.5f);
+            Debug.Log("Spawning chunk through invoke");
         }
     }
 
     private void FixedUpdate() {
         Vector3 cameraPos = Camera.main.transform.position;
         if(cameraPos.x > transform.position.x && (cameraPos - transform.position).magnitude > maxSafetyDist){
-            Destroy(this);
+            Destroy(gameObject);
         }
         parentObj.transform.position += new Vector3(-moveSpeed,0,0);
     }
@@ -80,7 +81,7 @@ public class LevelChunk : MonoBehaviour
             Debug.LogError("RANDOMOBJECT");
             return new RandomWeighting();
         }
-        Debug.Log("rand " + randOptions);
+        //Debug.Log("rand " + randOptions);
         foreach (RandomWeighting option in randOptions)
         {
             maxWeights+= option.weight;
@@ -135,12 +136,16 @@ public class LevelChunk : MonoBehaviour
 
     public void SpawnNextChunk()
     {
+        if(hasSpawnedNextArea){
+            return;
+        }
         GameObject nextChunk = GetRandomObject(nextChunks).randObject;
         nextChunk = Instantiate(nextChunk, nextAnchorObject.transform.position, Quaternion.identity);
-
+        hasSpawnedNextArea = true;
     }
 
     private void OnTriggerExit2D(Collider2D other) {
+        if(!this.gameObject.scene.isLoaded) return;
         if(other.gameObject.tag == killzoneTag){
             Destroy(parentObj);
         }

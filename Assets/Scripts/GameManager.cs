@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     private bool gameOver = false;
     [SerializeField, Tooltip("the rate at which the score increase per second")]private float pointsPerSecond;
     private static GameManager _instance;
+
     public static GameManager Instance
     {
         get{
@@ -81,7 +82,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="score">the amount to increase the score by</param>
     public void IncreaseScore(float score){
-        Debug.Log("added points");
+        //Debug.Log("added points");
             currentScore += score;
        
 
@@ -92,9 +93,9 @@ public class GameManager : MonoBehaviour
         scoreText.text = "Score: " + ((int)currentScore).ToString();
     }
 
-    private void GameOver(){
+    public void GameOver(){
         gameOver = true;
-        gameOverScoreText.text = "Final Score: " + currentScore;
+        gameOverScoreText.text = "Final Score: " + ((int)currentScore).ToString();
         GameOverMenu.SetActive(true);
         // if(GameOverMenu2){
         //     GameOverMenu2.SetActive(true);
