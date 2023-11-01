@@ -69,6 +69,9 @@ public class NetLauncher : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(!GameManager.Instance.isPlaying()){
+            return;
+        }
         if(timerCounting){
             float alpha = 255;
             launchTimer -= Time.fixedDeltaTime;
