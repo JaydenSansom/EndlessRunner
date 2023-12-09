@@ -12,12 +12,14 @@ public class Vine : MonoBehaviour
 
     HingeJoint2D playerJoint = null;
 
+    Player myPlayer = null;
+
     public void EnterVine(Player player, VineSegment segment)
     {
         if (playerJoint != null)
             return;
 
-        if (player.transform.parent != null)
+        if (player.myVine != null || myPlayer != null)
             return;
 
         currentSegment = segment;
@@ -35,15 +37,17 @@ public class Vine : MonoBehaviour
 
         playerJoint = player.AddComponent<HingeJoint2D>();
         playerJoint.connectedBody = currentSegment.GetComponent<Rigidbody2D>();
-        player.transform.parent = transform;
+        myPlayer = player;
         player.swinging = true;
+        myPlayer.myVine = this;
     }
 
     public void ExitVine(Player player)
     {
         Rigidbody2D playerRB = player.GetComponent<Rigidbody2D>();
         Destroy(playerJoint);
-        player.transform.parent = null;
+        myPlayer.myVine = null;
+        myPlayer = null;
         playerRB.velocity = new(Mathf.Min(playerRB.velocity.x * speedBoost + currentSegment.GetComponent<Rigidbody2D>().velocity.x, player.maxSpeed * speedBoost), 
                                 Mathf.Min(playerRB.velocity.y + currentSegment.GetComponent<Rigidbody2D>().velocity.y, player.maxSpeed * speedBoost));
         player.swinging = false;

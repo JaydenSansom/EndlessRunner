@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer sprite;
     Animator animator;
+    public Vine myVine = null;
     
     bool canJump = false;
     bool damageSlowDown = false;
@@ -44,7 +45,6 @@ public class Player : MonoBehaviour
             canJump = false;
 
         float dir = movementAction.ReadValue<float>();
-        //Debug.Log(dir);
 
         if (!damageSlowDown)
             rb.velocity = Vector2.Lerp(rb.velocity, new(dir * maxSpeed, rb.velocity.y), Time.fixedDeltaTime * speedUpLerpValue);
@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
         if (swinging && context.action.ReadValue<float>() != 0)
         {
             animator.SetBool("Swinging", false);
-            GetComponentInParent<Vine>().ExitVine(this);
+            myVine.ExitVine(this);
             return;
         }
 
